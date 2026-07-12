@@ -1,0 +1,43 @@
+/**
+ * Success Response
+ */
+exports.successResponse = (
+  res,
+  statusCode = 200,
+  message = "Success",
+  data = null,
+  meta = null,
+) => {
+  const response = {
+    success: true,
+    message,
+    data,
+  };
+
+  if (meta) {
+    Object.assign(response, meta);
+  }
+
+  return res.status(statusCode).json(response);
+};
+
+/**
+ * Error Response
+ */
+exports.errorResponse = (
+  res,
+  statusCode = 500,
+  message = "An unexpected error occurred.",
+  errors = null,
+) => {
+  const response = {
+    success: false,
+    message,
+  };
+
+  if (errors) {
+    response.errors = errors;
+  }
+
+  return res.status(statusCode).json(response);
+};
