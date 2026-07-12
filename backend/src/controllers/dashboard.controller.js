@@ -1,21 +1,114 @@
- const Case = require("../models/Case");
-
+const Case = require("../models/Case");
 const CaseHistory = require("../models/CaseHistory");
+
 const {
-    successResponse,
-    errorResponse,
+  successResponse,
+  errorResponse,
 } = require("../helpers/response.helper");
 
- exports.getRecentActivity = async (req, res) => {
-  try {
+const { CASE_STATUS } = require("../constants/case.constants");
 
+
+ 
+exports.getDashboardSummary = async (req, res) => {
+  try {
+    const summary = await Case.aggregate([
+      {
+        $facet: {
+          totalCases: [
+            {
+              $match: {
+                isDeleted: false,
+              },
+            },
+            { $count: "count" },
+          ],
+
+          reported: [
+            {
+              $match: {
+                status: CASE_STATUS.REPORTED,
+                isDeleted: false,
+              },
+            },
+            { $count: "count" },
+          ],
+
+          assigned: [
+            {
+              $match: {
+                status: CASE_STATUS.ASSIGNED,
+                isDeleted: false,
+              },
+            },
+            { $count: "count" },
+          ],
+
+          underInvestigation: [
+            {
+              $match: {
+                status: CASE_STATUS.UNDER_INVESTIGATION,
+                isDeleted: false,
+              },
+            },
+            { $count: "count" },
+          ],
+
+          resolved: [
+            {
+              $match: {
+                status: CASE_STATUS.RESOLVED,
+                isDeleted: false,
+              },
+            },
+            { $count: "count" },
+          ],
+
+          closed: [
+            {
+              $match: {
+                status: CASE_STATUS.CLOSED,
+                isDeleted: false,
+              },
+            },
+            { $count: "count" },
+          ],
+        },
+      },
+    ]);
+
+    const data = {
+      totalCases: summary[0].totalCases[0]?.count || 0,
+      reportedCases: summary[0].reported[0]?.count || 0,
+      assignedCases: summary[0].assigned[0]?.count || 0,
+      underInvestigation: summary[0].underInvestigation[0]?.count || 0,
+      resolvedCases: summary[0].resolved[0]?.count || 0,
+      closedCases: summary[0].closed[0]?.count || 0,
+    };
+
+    return successResponse(
+      res,
+      200,
+      "Dashboard summary retrieved successfully.",
+      data,
+    );
+  } catch (error) {
+    console.error(error);
+
+    return errorResponse(res, 500, "An unexpected error occurred.");
+  }
+};
+
+ 
+exports.getRecentActivity = async (req, res) => {
+  try {
     const activities = await CaseHistory.find()
       .populate("performedBy", "fullName username role")
       .populate("case", "caseNumber")
       .sort({ createdAt: -1 })
       .limit(10);
 
-    const formattedActivities = activities.map(activity => ({
+    const formattedActivities = activities.map((activity) => ({
       caseNumber: activity.case?.caseNumber || "Unknown Case",
 
       action: activity.action,
@@ -32,126 +125,72 @@ const {
       performedAt: activity.createdAt,
     }));
 
-    return res.status(200).json({
-      success: true,
-      count: formattedActivities.length,
-      data: formattedActivities,
-    });
-
-  } catch (error) {
-
-    console.error(error);
-
-    return res.status(500).json({
-      success: false,
-      message: "An unexpected error occurred.",
-    });
-
-  }
-};
-
-exports.getDashboardSummary = async (req, res) => {
-  try {
-    const totalCases = await Case.countDocuments({ isDeleted: false });
-
-    const reportedCases = await Case.countDocuments({
-      status: "Reported",
-      isDeleted: false,
-    });
-
-    const assignedCases = await Case.countDocuments({
-      status: "Assigned",
-      isDeleted: false,
-    });
-
-    const underInvestigation = await Case.countDocuments({
-      status: "Under Investigation",
-      isDeleted: false,
-    });
-
-    const resolvedCases = await Case.countDocuments({
-      status: "Resolved",
-      isDeleted: false,
-    });
-
-    const closedCases = await Case.countDocuments({
-      status: "Closed",
-      isDeleted: false,
-    });
-
-    return res.status(200).json({
-      success: true,
-      data: {
-        totalCases,
-        reportedCases,
-        assignedCases,
-        underInvestigation,
-        resolvedCases,
-        closedCases,
+    return successResponse(
+      res,
+      200,
+      "Recent activity retrieved successfully.",
+      formattedActivities,
+      {
+        count: formattedActivities.length,
       },
-    });
-
+    );
   } catch (error) {
     console.error(error);
 
-    return res.status(500).json({
-      success: false,
-      message: "An unexpected error occurred.",
-    });
+    return errorResponse(res, 500, "An unexpected error occurred.");
   }
 };
 
+ 
 exports.getCasesByCategory = async (req, res) => {
   try {
-
     const categories = await Case.aggregate([
       {
         $match: {
-          isDeleted: false
-        }
+          isDeleted: false,
+        },
       },
       {
         $group: {
           _id: "$category",
           count: {
-            $sum: 1
-          }
-        }
+            $sum: 1,
+          },
+        },
       },
       {
         $project: {
           _id: 0,
           category: "$_id",
-          count: 1
-        }
+          count: 1,
+        },
       },
       {
         $sort: {
-          count: -1
-        }
-      }
+          count: -1,
+        },
+      },
     ]);
 
-    return res.status(200).json({
-      success: true,
-      data: categories
-    });
-
+    return successResponse(
+      res,
+      200,
+      "Cases by category retrieved successfully.",
+      categories,
+      {
+        count: categories.length,
+      },
+    );
   } catch (error) {
-
     console.error(error);
 
-    return res.status(500).json({
-      success: false,
-      message: "An unexpected error occurred."
-    });
-
+    return errorResponse(res, 500, "An unexpected error occurred.");
   }
 };
 
+ 
 exports.getCasesByCounty = async (req, res) => {
   try {
-
     const counties = await Case.aggregate([
       {
         $match: {
@@ -180,26 +219,25 @@ exports.getCasesByCounty = async (req, res) => {
       },
     ]);
 
-    return res.status(200).json({
-      success: true,
-      data: counties,
-    });
-
+    return successResponse(
+      res,
+      200,
+      "Cases by county retrieved successfully.",
+      counties,
+      {
+        count: counties.length,
+      },
+    );
   } catch (error) {
-
     console.error(error);
 
-    return res.status(500).json({
-      success: false,
-      message: "An unexpected error occurred.",
-    });
-
+    return errorResponse(res, 500, "An unexpected error occurred.");
   }
 };
 
+ 
 exports.getMonthlyCases = async (req, res) => {
   try {
-
     const monthlyCases = await Case.aggregate([
       {
         $match: {
@@ -241,37 +279,37 @@ exports.getMonthlyCases = async (req, res) => {
       "December",
     ];
 
-    const formattedData = monthlyCases.map(item => ({
+    const formattedData = monthlyCases.map((item) => ({
       year: item._id.year,
       month: monthNames[item._id.month],
       cases: item.cases,
     }));
 
-    return res.status(200).json({
-      success: true,
-      data: formattedData,
-    });
-
+    return successResponse(
+      res,
+      200,
+      "Monthly case statistics retrieved successfully.",
+      formattedData,
+      {
+        count: formattedData.length,
+      },
+    );
   } catch (error) {
-
     console.error(error);
 
-    return res.status(500).json({
-      success: false,
-      message: "An unexpected error occurred.",
-    });
-
+    return errorResponse(res, 500, "An unexpected error occurred.");
   }
 };
-
+ 
 exports.getOfficerWorkload = async (req, res) => {
   try {
-
     const workload = await Case.aggregate([
       {
         $match: {
           isDeleted: false,
-          assignedTo: { $ne: null },
+          assignedTo: {
+            $ne: null,
+          },
         },
       },
       {
@@ -297,10 +335,7 @@ exports.getOfficerWorkload = async (req, res) => {
         $project: {
           _id: 0,
           officer: {
-            $ifNull: [
-              "$officer.fullName",
-              "$officer.username",
-            ],
+            $ifNull: ["$officer.fullName", "$officer.username"],
           },
           role: "$officer.role",
           assignedCases: 1,
@@ -313,19 +348,18 @@ exports.getOfficerWorkload = async (req, res) => {
       },
     ]);
 
-    return res.status(200).json({
-      success: true,
-      data: workload,
-    });
-
+    return successResponse(
+      res,
+      200,
+      "Officer workload retrieved successfully.",
+      workload,
+      {
+        count: workload.length,
+      },
+    );
   } catch (error) {
-
     console.error(error);
 
-    return res.status(500).json({
-      success: false,
-      message: "An unexpected error occurred.",
-    });
-
+    return errorResponse(res, 500, "An unexpected error occurred.");
   }
 };
