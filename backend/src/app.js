@@ -11,6 +11,8 @@ const userRoutes = require("./routes/user.routes");
 const evidenceRoutes = require("./routes/evidenceRoutes");
 const commentRoutes = require("./routes/comment.routes");
 const timelineRoutes = require("./routes/timeline.routes");
+const governmentUserRoutes =
+require("./routes/government-user.routes");
 
 const app = express();
 
@@ -35,6 +37,10 @@ app.use("/api/cases", timelineRoutes);
 app.use("/api/cases", commentRoutes);
 app.use("/api/evidence", evidenceRoutes);
 
+app.use(
+    "/api/government-users",
+    governmentUserRoutes
+);
 app.use(errorMiddleware);
 
 module.exports = app;

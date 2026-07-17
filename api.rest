@@ -1,0 +1,212 @@
+###register Government User
+ POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  
+  "password": "M@1029123924",
+  "userType": "Government",
+  "role": "Chief",
+
+  "personalNumber": "20210003321",
+  "nationalId": "2912392",
+
+  "fullName": "ACC",
+
+  "phoneNumber": "0769121993",
+
+  "email": " ACC@samis.go.ke",
+
+  "designation": "ACC",
+
+  "county": "Laikipia",
+  "subCounty": "Kirima",
+  "division": "Olmoran",
+  "location": "Olmoran",
+  "subLocation": "Olmoran",
+  "village": "Nguisusu"
+} 
+### Register Citizen
+POST http://localhost:3000/api/auth/register
+Authorization: Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4Mzc1MTE0NywiZXhwIjoxNzgzODM3NTQ3fQ.Rhy5TVHnuHKsJC_JmmceQNRpRoI7J-AzJpgxUhTz-lM
+Content-Type: application/json
+
+{
+  "password": "Admin@123",
+  "userType": "Government",
+  "role": "DCC",
+  "personalNumber": "DCC02",
+  "nationalId": "5662825",
+  "fullName": "Jama Hajji",
+  "phoneNumber": "0752784455",
+  "email": "jama@samis.go.ke",
+  "designation": "Deputy County Commissioner",
+  "county": "Laikipia",
+  "subCounty": "Kirima",
+  "division": "Olmoran",
+  "location": "Olmoran",
+  "subLocation": "HQ",
+  "village": "HQ"
+}
+
+###
+
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "2118",
+  "password":"M@1029123924o"
+}
+
+
+#### testing token auth
+GET http://localhost:3000/api/auth/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDhjMjgyMzQwNjM4MWQ1YjhiZTEzNyIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4MzY3MTI5MiwiZXhwIjoxNzgzNzU3NjkyfQ.CmBcym8sD66ANNWk3laGFXNnp078ve4ii99yG3NVWCY
+
+### test admin role
+GET http://localhost:3000/api/auth/admin
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpX
+VCJ9.eyJpZCI6IjZhNDhjM2IwMzQwNjM4MWQ1YjhiZTEzOSIsIn
+VzZXJuYW1lIjoiMTIzNDU2NzgiLCJyb2xlIjoiQ2l0aXplbiIsInV
+zZXJUeXBlIjoiQ2l0aXplbiIsImlhdCI6MTc4MzE2NDE2NSwiZXhwI
+joxNzgzMjUwNTY1fQ.tHaTziJcSb8MQhiGl8isig6a8-ugpMCT_
+MrSzDHWfAY
+
+### case creation
+POST http://localhost:3000/api/cases
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4Mzc1MTE0NywiZXhwIjoxNzgzODM3NTQ3fQ.Rhy5TVHnuHKsJC_JmmceQNRpRoI7J-AzJpgxUhTz-lM
+
+{
+  "title": "Security",
+  "description": "Cattle Raid",
+  "category": "Security",
+  "county": "Laikipia",
+  "subCounty": "Kirima",
+  "division": "Louniek",
+  "location": "Kariwo",
+  "subLocation": "Nagum",
+  "village": "Louniek",
+  "priority": "High"
+}
+#### get all cases
+GET http://localhost:3000/api/cases
+
+#### get case by id
+GET http://localhost:3000/api/cases/6a5260267bb0cd335a4a2547
+
+### update case
+PATCH http://localhost:3000/api/cases/6a4a66885926461d1b416229/status
+
+Content-Type: application/json
+
+ {
+    "status": "Resolved"
+} 
+###
+POST http://localhost:3000/api/cases/6a5260267bb0cd335a4a2547/assign
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4Mzc1MTE0NywiZXhwIjoxNzgzODM3NTQ3fQ.Rhy5TVHnuHKsJC_JmmceQNRpRoI7J-AzJpgxUhTz-lM
+ 
+{
+    "assignedTo": "6a50cf25e14a13401261b3ee"
+}
+###filter cases
+GET http://localhost:3000/api/cases?search=SAMIS-2026-000005
+
+
+###test sort & pagination
+
+GET http://localhost:3000/api/cases?status=Assigned&page=1&limit=5
+
+### validating sorts and pagination
+GET http://localhost:3000/api/government-users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4NDI2ODkyNiwiZXhwIjoxNzg0MzU1MzI2fQ.aYi87N5q50Sy2t-FVxWrgkIW0dLcSLtwmAi8HR0Cokc
+
+### delete case
+DELETE http://localhost:3000/api/cases/6a4b60b85b3e1b75b4cfd08b
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDhjMjgyMzQwNjM4MWQ1YjhiZTEzNyIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4MzYwMzA3NSwiZXhwIjoxNzgzNjg5NDc1fQ.te0Hiwre86fpJmLAd-1IzhlhVOazeiWilGI7Wy9Tm0I
+
+### restore case
+PATCH  http://localhost:3000/api/cases/6a4b639168b269a4f3eb3322/restore
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDhjMjgyMzQwNjM4MWQ1YjhiZTEzNyIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4MzYwMzA3NSwiZXhwIjoxNzgzNjg5NDc1fQ.te0Hiwre86fpJmLAd-1IzhlhVOazeiWilGI7Wy9Tm0I
+
+###get all deleted cases
+ 
+GET http://localhost:3000/api/cases/deleted/all
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDhjMjgyMzQwNjM4MWQ1YjhiZTEzNyIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4MzYwMzA3NSwiZXhwIjoxNzgzNjg5NDc1fQ.te0Hiwre86fpJmLAd-1IzhlhVOazeiWilGI7Wy9Tm0I
+
+### history
+
+GET http://localhost:3000/api/cases/6a4b60b85b3e1b75b4cfd08b/history
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDhjMjgyMzQwNjM4MWQ1YjhiZTEzNyIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4MzYwMzA3NSwiZXhwIjoxNzgzNjg5NDc1fQ.te0Hiwre86fpJmLAd-1IzhlhVOazeiWilGI7Wy9Tm0I
+
+###dashboard
+GET http://localhost:3000/api/dashboard/summary
+
+###
+GET http://localhost:3000/api/dashboard/categories
+
+###
+GET http://localhost:3000/api/dashboard/monthly
+
+###
+GET http://localhost:3000/api/dashboard/recent-activity
+
+###get user profile
+GET http://localhost:3000/api/users/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4Mzc1MTE0NywiZXhwIjoxNzgzODM3NTQ3fQ.Rhy5TVHnuHKsJC_JmmceQNRpRoI7J-AzJpgxUhTz-lM
+
+###
+PATCH http://localhost:3000/api/users/change-password
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDhjMjgyMzQwNjM4MWQ1YjhiZTEzNyIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4MzY3OTEyNCwiZXhwIjoxNzgzNzY1NTI0fQ.02h3U7PHIdNn662StLtPuZOSTfBaIDxr68GRRP0tvbM
+Content-Type: application/json
+
+{
+    "currentPassword":"M@1029123924",
+    "newPassword":"@Onesmus1"
+}
+
+### evidence upload
+POST http://localhost:3000/api/evidence/6a5102d72e4fc66a76921fd0/upload
+Content-Type: multipart/form-data;
+Authorization: Bearer
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4Mzc1MTE0NywiZXhwIjoxNzgzODM3NTQ3fQ.Rhy5TVHnuHKsJC_JmmceQNRpRoI7J-AzJpgxUhTz-lM
+
+###
+GET http://localhost:3000/api/evidence/6a5102d72e4fc66a76921fd0
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4Mzc1MTE0NywiZXhwIjoxNzgzODM3NTQ3fQ.Rhy5TVHnuHKsJC_JmmceQNRpRoI7J-AzJpgxUhTz-lM
+
+###
+GET http://localhost:3000/api/evidence/item/6a51e765d57b08df01460d41
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4Mzc1MTE0NywiZXhwIjoxNzgzODM3NTQ3fQ.Rhy5TVHnuHKsJC_JmmceQNRpRoI7J-AzJpgxUhTz-lM
+
+### download
+GET http://localhost:3000/api/evidence/download/6a51e765d57b08df01460d41
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4Mzc1MTE0NywiZXhwIjoxNzgzODM3NTQ3fQ.Rhy5TVHnuHKsJC_JmmceQNRpRoI7J-AzJpgxUhTz-lM
+### EDIT EVIDENCE
+PATCH http://localhost:3000/api/evidence/6a51e765d57b08df01460d41
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4Mzc1MTE0NywiZXhwIjoxNzgzODM3NTQ3fQ.Rhy5TVHnuHKsJC_JmmceQNRpRoI7J-AzJpgxUhTz-lM
+
+{
+  "category": "Other",
+  "description": "Front view of suspect's ID."
+}
+ 
+###delete
+
+DELETE  http://localhost:3000/api/evidence/6a51e765d57b08df01460d41
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4Mzc1MTE0NywiZXhwIjoxNzgzODM3NTQ3fQ.Rhy5TVHnuHKsJC_JmmceQNRpRoI7J-AzJpgxUhTz-lM
+ 
+###
+GET http://localhost:3000/api/evidence/statistics/summary
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4Mzc1MTE0NywiZXhwIjoxNzgzODM3NTQ3fQ.Rhy5TVHnuHKsJC_JmmceQNRpRoI7J-AzJpgxUhTz-lM
+ 
+ 

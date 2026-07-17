@@ -1,0 +1,424 @@
+  <h2 mat-dialog-title>
+
+@if(isEditMode){
+
+    <mat-icon>edit</mat-icon>
+
+    Edit Government User
+
+}@else{
+
+    <mat-icon>person_add</mat-icon>
+
+    Register Government User 
+
+}
+
+</h2>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-content>
+
+<form [formGroup]="governmentUserForm" class="form-grid">
+
+  <!-- ===================================================== -->
+  <!-- ACCOUNT INFORMATION -->
+  <!-- ===================================================== -->
+
+  <div class="section-title">
+    <mat-icon>lock</mat-icon>
+    <span>Account Information</span>
+  </div>
+
+  <!-- Password -->
+@if (!isEditMode) {
+  <mat-form-field appearance="outline">
+
+    <mat-label>Password</mat-label>
+
+    <input
+      matInput
+      [type]="hidePassword ? 'password' : 'text'"
+      formControlName="password">
+
+    <button
+      mat-icon-button
+      matSuffix
+      type="button"
+      (click)="hidePassword = !hidePassword">
+
+      <mat-icon>
+        {{ hidePassword ? 'visibility_off' : 'visibility' }}
+      </mat-icon>
+
+    </button>
+
+    @if (governmentUserForm.controls.password.hasError('required') &&
+         governmentUserForm.controls.password.touched) {
+
+      <mat-error>Password is required.</mat-error>
+
+    }
+
+    @if (governmentUserForm.controls.password.hasError('minlength')) {
+
+      <mat-error>
+        Password must be at least 6 characters.
+      </mat-error>
+
+    }
+
+  </mat-form-field>
+}
+
+ <!-- Confirm Password -->
+@if (!isEditMode) {
+ 
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>Confirm Password</mat-label>
+
+    <input
+      matInput
+      [type]="hideConfirmPassword ? 'password' : 'text'"
+      formControlName="confirmPassword">
+
+    <button
+      mat-icon-button
+      matSuffix
+      type="button"
+      (click)="hideConfirmPassword=!hideConfirmPassword">
+
+      <mat-icon>
+        {{ hideConfirmPassword ? 'visibility_off':'visibility' }}
+      </mat-icon>
+
+    </button>
+
+    @if (governmentUserForm.controls.confirmPassword.hasError('required') &&
+         governmentUserForm.controls.confirmPassword.touched) {
+
+      <mat-error>
+        Confirm Password is required.
+      </mat-error>
+
+    }
+
+    @if (governmentUserForm.hasError('passwordMismatch') &&
+         governmentUserForm.controls.confirmPassword.touched) {
+
+      <mat-error>
+        Passwords do not match.
+      </mat-error>
+
+    }
+
+  </mat-form-field>
+}
+  <!-- Role -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>Role</mat-label>
+
+    <mat-select formControlName="role">
+
+      @for(role of roles; track role.value){
+
+        <mat-option [value]="role.value">
+          {{role.label}}
+        </mat-option>
+
+      }
+
+    </mat-select>
+
+    @if (governmentUserForm.controls.role.hasError('required') &&
+         governmentUserForm.controls.role.touched) {
+
+      <mat-error>
+        Role is required.
+      </mat-error>
+
+    }
+
+  </mat-form-field>
+
+  <!-- Designation -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>Designation</mat-label>
+
+    <input
+      matInput
+      formControlName="designation"
+      readonly>
+
+  </mat-form-field>
+
+
+
+  <!-- ===================================================== -->
+  <!-- PERSONAL INFORMATION -->
+  <!-- ===================================================== -->
+
+  <div class="section-title">
+    <mat-icon>badge</mat-icon>
+    <span>Personal Information</span>
+  </div>
+
+  <!-- Personal Number -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>Personal Number</mat-label>
+
+    <input matInput formControlName="personalNumber">
+
+    @if (governmentUserForm.controls.personalNumber.hasError('required')
+      && governmentUserForm.controls.personalNumber.touched){
+
+      <mat-error>
+        Personal Number is required.
+      </mat-error>
+
+    }
+
+  </mat-form-field>
+
+  <!-- National ID -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>National ID</mat-label>
+
+    <input matInput formControlName="nationalId">
+
+    @if (governmentUserForm.controls.nationalId.hasError('required')
+      && governmentUserForm.controls.nationalId.touched){
+
+      <mat-error>
+        National ID is required.
+      </mat-error>
+
+    }
+
+  </mat-form-field>
+
+  <!-- Full Name -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>Full Name</mat-label>
+
+    <input matInput formControlName="fullName">
+
+    @if (governmentUserForm.controls.fullName.hasError('required')
+      && governmentUserForm.controls.fullName.touched){
+
+      <mat-error>
+        Full Name is required.
+      </mat-error>
+
+    }
+
+  </mat-form-field>
+
+  <!-- Phone -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>Phone Number</mat-label>
+
+    <input matInput formControlName="phoneNumber">
+
+    @if (governmentUserForm.controls.phoneNumber.hasError('required')
+      && governmentUserForm.controls.phoneNumber.touched){
+
+      <mat-error>
+        Phone Number is required.
+      </mat-error>
+
+    }
+
+  </mat-form-field>
+
+  <!-- Email -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>Email</mat-label>
+
+    <input matInput formControlName="email">
+
+    @if (governmentUserForm.controls.email.hasError('required')
+      && governmentUserForm.controls.email.touched){
+
+      <mat-error>
+        Email is required.
+      </mat-error>
+
+    }
+
+    @if (governmentUserForm.controls.email.hasError('email')){
+
+      <mat-error>
+        Invalid email address.
+      </mat-error>
+
+    }
+
+  </mat-form-field>
+
+
+
+  <!-- ===================================================== -->
+  <!-- ADMINISTRATIVE INFORMATION -->
+  <!-- ===================================================== -->
+
+  <div class="section-title">
+    <mat-icon>location_city</mat-icon>
+    <span>Administrative Information</span>
+  </div>
+
+  <!-- County -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>County</mat-label>
+
+    <input matInput formControlName="county">
+
+    @if (governmentUserForm.controls.county.hasError('required')
+      && governmentUserForm.controls.county.touched){
+
+      <mat-error>
+        County is required.
+      </mat-error>
+
+    }
+
+  </mat-form-field>
+
+  <!-- Sub County -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>Sub County</mat-label>
+
+    <input matInput formControlName="subCounty">
+
+    @if (governmentUserForm.controls.subCounty.hasError('required')
+      && governmentUserForm.controls.subCounty.touched){
+
+      <mat-error>
+        Sub County is required.
+      </mat-error>
+
+    }
+
+  </mat-form-field>
+
+  <!-- Division -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>Division</mat-label>
+
+    <input matInput formControlName="division">
+
+    @if (governmentUserForm.controls.division.hasError('required')
+      && governmentUserForm.controls.division.touched){
+
+      <mat-error>
+        Division is required.
+      </mat-error>
+
+    }
+
+  </mat-form-field>
+
+  <!-- Location -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>Location</mat-label>
+
+    <input matInput formControlName="location">
+
+    @if (governmentUserForm.controls.location.hasError('required')
+      && governmentUserForm.controls.location.touched){
+
+      <mat-error>
+        Location is required.
+      </mat-error>
+
+    }
+
+  </mat-form-field>
+
+  <!-- Sub Location -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>Sub Location</mat-label>
+
+    <input matInput formControlName="subLocation">
+
+    @if (governmentUserForm.controls.subLocation.hasError('required')
+      && governmentUserForm.controls.subLocation.touched){
+
+      <mat-error>
+        Sub Location is required.
+      </mat-error>
+
+    }
+
+  </mat-form-field>
+
+  <!-- Village -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>Village</mat-label>
+
+    <input matInput formControlName="village">
+
+  </mat-form-field>
+
+</form>
+
+</mat-dialog-content>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-actions align="end">
+
+  <button mat-button mat-dialog-close>
+    Cancel
+  </button>
+
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="loading || governmentUserForm.invalid"
+    (click)="onSubmit()">
+
+    @if (loading) {
+
+      <mat-spinner diameter="18"></mat-spinner>
+
+    } @else {
+
+      <mat-icon>save</mat-icon>
+
+    }
+
+    Register User
+
+  </button>
+
+</mat-dialog-actions>

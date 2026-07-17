@@ -1,0 +1,108 @@
+ <div class="container-fluid" >
+ 
+  <div class="row g-4"  *ngIf="role==='superAdmin'">
+
+    <div class="col-lg-3 col-md-6" >
+      <div class="card stat-card">
+        <div class="card-body">
+          <h6>Open Cases</h6>
+          <h2>{{ dashboard?.openCases }}</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+      <div class="card stat-card">
+        <div class="card-body">
+          <h6>Resolved Cases</h6>
+          <h2>{{ dashboard?.resolvedCases }}</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+      <div class="card stat-card">
+        <div class="card-body">
+          <h6>Today's Visitors</h6>
+          <h2>{{ dashboard?.todaysVisitors }}</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+      <div class="card stat-card">
+        <div class="card-body">
+          <h6>Reports Submitted</h6>
+          <h2>{{ dashboard?.reportsSubmitted }}</h2>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row mt-4" >
+
+    <div class="col-lg-8">
+
+      <div class="card">
+        <div class="card-header">
+          Recent Activities
+        </div>
+
+        <div class="card-body">
+
+          <table class="table table-striped">
+
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Activity</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              <tr>
+                <td>25/06/2026</td>
+                <td>Land Dispute Case</td>
+                <td>
+                  <span class="badge bg-warning">
+                    Open
+                  </span>
+                </td>
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-lg-4">
+
+      <div class="card">
+
+        <div class="card-header">
+          Quick Statistics
+        </div>
+
+        <div class="card-body" >
+
+          <p>Land Cases: {{ dashboard?.landCases }}</p>
+          <p>Family Cases: {{ dashboard?.familyCases }}</p>
+          <p>Succession Cases: {{ dashboard?.successionCases }}</p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

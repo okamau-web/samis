@@ -1,0 +1,69 @@
+<div class="wrapper">
+   
+    <aside class="sidebar">
+      <div class="logo">
+        <h2>SAMIS</h2>
+      </div>
+
+      <div class="user-panel">
+        <div class="avatar">
+          {{ currentUser?.username?.charAt(0) }}
+        </div>
+
+        <h5>{{ currentUser?.username }}</h5>
+
+        <small>{{ currentUser?.role }}</small>
+      </div>
+
+      <nav class="menu">
+        <a routerLink="/dashboard" routerLinkActive="active">
+          <i class="bi bi-speedometer2"></i>
+
+          Dashboard
+        </a>
+
+        <a routerLink="/cases" routerLinkActive="active">
+          <i class="bi bi-folder2-open"></i>
+
+          Cases
+        </a>
+
+        <a routerLink="/reports" routerLinkActive="active">
+          <i class="bi bi-file-earmark-text"></i>
+
+          Reports
+        </a>
+
+        <a routerLink="/clients" routerLinkActive="active">
+          <i class="bi bi-people"></i>
+
+          Citizens
+        </a>
+        <a routerLink="/government-users" routerLinkActive="active">
+          <i class="bi bi-people"></i>
+
+          Government Users
+        </a>
+      </nav>
+
+      <button class="logout-btn" (click)="logout()">
+        <i class="bi bi-box-arrow-right"></i>
+
+        Logout
+      </button>
+     <small> SAMIS v1.0.0
+© 2026 </small>
+    </aside>
+  
+
+  <main class="content">
+    <div class="topbar">
+      <h4 style="color: #007bff; font-weight: bold;" >
+        WELCOME TO DASHBOARD</h4>
+    </div>
+
+    <div class="p-3">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

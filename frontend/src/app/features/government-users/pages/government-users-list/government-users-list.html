@@ -1,0 +1,97 @@
+ <app-page-header
+    title="Government Users"
+    subtitle="Manage government users within the system."
+    [showBackButton]="true"
+    backButtonText="Dashboard"
+    (back)="goToDashboard()">
+
+    <button
+        mat-raised-button
+        color="primary"
+        (click)="openRegisterDialog()">
+
+        <mat-icon>person_add</mat-icon>
+
+        Register User
+
+    </button>
+
+</app-page-header>
+<div class="filters">
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>Search</mat-label>
+
+     <input
+    matInput
+    [formControl]="searchControl"
+    placeholder="Search by Name, Username, Personal Number or National ID">
+
+<mat-icon matSuffix>search</mat-icon>
+
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>Role</mat-label>
+
+    <mat-select
+      [(ngModel)]="selectedRole"
+      (selectionChange)="loadGovernmentUsers()">
+
+      <mat-option value="">All Roles</mat-option>
+
+      <mat-option value="CC">County Commissioner</mat-option>
+
+      <mat-option value="DCC">Deputy County Commissioner</mat-option>
+
+      <mat-option value="ACC">Assistant County Commissioner</mat-option>
+
+      <mat-option value="Chief">Chief</mat-option>
+
+      <mat-option value="AssistantChief">Assistant Chief</mat-option>
+
+    </mat-select>
+
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>Status</mat-label>
+
+    <mat-select
+      [(ngModel)]="selectedStatus"
+      (selectionChange)="loadGovernmentUsers()">
+
+      <mat-option value="">All Status</mat-option>
+
+      <mat-option value="Active">Active</mat-option>
+
+      <mat-option value="Suspended">Suspended</mat-option>
+
+    </mat-select>
+
+  </mat-form-field>
+
+</div>
+<mat-card class="page-card">
+
+  <app-government-user-table
+    [users]="governmentUsers"
+    (view)="viewGovernmentUser($event)"
+    (edit)="editGovernmentUser($event)"
+    (suspend)="toggleGovernmentUserStatus($event)">
+  </app-government-user-table>
+<mat-paginator
+
+    [length]="totalRecords"
+
+    [pageSize]="pageSize"
+
+    [pageSizeOptions]="[5,10,20,50]"
+
+    (page)="onPageChange($event)">
+
+</mat-paginator>
+</mat-card>

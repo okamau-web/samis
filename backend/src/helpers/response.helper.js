@@ -1,12 +1,10 @@
-/**
- * Success Response
- */
+ 
 exports.successResponse = (
   res,
-  statusCode = 200,
   message = "Success",
   data = null,
-  meta = null,
+  statusCode = 200,
+  meta = null
 ) => {
   const response = {
     success: true,
@@ -14,6 +12,12 @@ exports.successResponse = (
     data,
   };
 
+  // Automatically include count for arrays
+  if (Array.isArray(data)) {
+    response.count = data.length;
+  }
+
+  // Optional metadata (pagination, totals, etc.)
   if (meta) {
     Object.assign(response, meta);
   }
@@ -21,14 +25,12 @@ exports.successResponse = (
   return res.status(statusCode).json(response);
 };
 
-/**
- * Error Response
- */
+ 
 exports.errorResponse = (
   res,
-  statusCode = 500,
   message = "An unexpected error occurred.",
-  errors = null,
+  statusCode = 500,
+  errors = null
 ) => {
   const response = {
     success: false,

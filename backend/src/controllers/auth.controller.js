@@ -230,34 +230,52 @@ if (!isStrongPassword(password)) {
   }
 };
 
-exports.login = async (req, res) => {
+ 
+ exports.login = async (req, res) => {
   try {
+
     const { username, password } = req.body;
 
     if (!username || !password) {
-      return res.status(400).json({
-        success: false,
-        message: "Username and password are required.",
-      });
+      return errorResponse(
+        res,
+        "Username and password are required.",
+        400
+      );
     }
 
     const user = await User.findOne({ username });
 
     if (!user) {
-      return res.status(401).json({
-        success: false,
-        message: "Invalid username or password.",
-      });
+      return errorResponse(
+        res,
+        "Invalid username or password.",
+        401
+      );
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(
+      password,
+      user.password
+    );
 
     if (!isMatch) {
-      return res.status(401).json({
-        success: false,
-        message: "Invalid username or password.",
-      });
+      return errorResponse(
+        res,
+        "Invalid username or password.",
+       401
+      );
     }
+
+    // Prevent suspended users from logging in
+    if (user.status === "Suspended") {
+      return errorResponse(
+        res,
+        "Your account has been suspended. Please contact the system administrator.",
+        403
+      );
+    }
+
     const token = jwt.sign(
       {
         id: user._id,
@@ -268,26 +286,29 @@ exports.login = async (req, res) => {
       process.env.JWT_SECRET,
       {
         expiresIn: process.env.JWT_EXPIRES_IN,
-      },
+      }
     );
 
-    return res.status(200).json({
-      success: true,
-      message: "Login successful.",
-      token,
-      data: {
+  
+    return successResponse(
+    res,
+    
+    "Login successful.",
+    {
+        token,
         userId: user._id,
         username: user.username,
         role: user.role,
         userType: user.userType,
-      },
-    });
-    // JWT comes next...
+    }
+);
+
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: error.message,
-    });
+
+    return errorResponse(
+      res,
+      error.message
+    );
+
   }
 };
-
