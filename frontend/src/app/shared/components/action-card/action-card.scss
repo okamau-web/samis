@@ -1,0 +1,85 @@
+.action-card{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    padding:18px;
+
+    border-radius:16px;
+
+    background:white;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    box-shadow:0 3px 10px rgba(0,0,0,.08);
+
+}
+
+.action-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+}
+
+.icon{
+
+    width:56px;
+
+    height:56px;
+
+    border-radius:14px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.icon mat-icon{
+
+    color:white;
+
+    width:28px;
+
+    height:28px;
+
+    font-size:28px;
+
+}
+
+.content{
+
+    flex:1;
+
+}
+
+.content h3{
+
+    margin:0;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    color:#1F2937;
+
+}
+
+.content p{
+
+    margin-top:4px;
+
+    color:#6B7280;
+
+    font-size:13px;
+
+}

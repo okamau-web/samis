@@ -7,21 +7,24 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
-
-import { GovernmentUserTable } from '../../components/government-user-table/government-user-table';
+import { Sort } from '@angular/material/sort';
 import { PageHeader } from '../../../../shared/components/page-header/page-header';
 import { inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { GovernmentUserForm } from '../../components/government-user-form/government-user-form';
+
 import { GovernmentUserService } from '../../services/government-user';
-import { GovernmentUser } from '../../models/government-user';
-import { GovernmentUserView } from '../../components/government-user-view/government-user-view';
+import { GovernmentUser } from '../../../../shared/models/government-user';
+
 import { SnackbarService } from '../../../../core/services/snackbar';
 import { ConfirmationDialog } from '../../../../shared/components/confirmation-dialog/confirmation-dialog';
 import { Router } from '@angular/router';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { GovernmentUserTable } from '../../components/government-user-table/government-user-table';
+import { GovernmentUserForm } from '../../components/government-user-form/government-user-form';
+import { GovernmentUserView } from '../../components/government-user-view/government-user-view';
+
 @Component({
   selector: 'app-government-users-list',
   standalone: true,
@@ -38,7 +41,6 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
     FormsModule,
     PageHeader,
     MatPaginatorModule,
-     
   ],
   templateUrl: './government-users-list.html',
   styleUrl: './government-users-list.scss',
@@ -53,11 +55,11 @@ export class GovernmentUsersList {
   selectedRole = '';
   selectedStatus = '';
   page = 1;
-
   pageSize = 10;
-
   totalRecords = 0;
   loading = false;
+  sortBy = 'fullName';
+  sortOrder: 'asc' | 'desc' = 'asc';
 
   governmentUsers: GovernmentUser[] = [];
 
@@ -79,16 +81,27 @@ export class GovernmentUsersList {
   searchControl = new FormControl('', {
     nonNullable: true,
   });
+  onSortChange(event: Sort): void {
+    if (!event.active) {
+      return;
+    }
+
+    this.sortBy = event.active;
+
+    this.sortOrder = event.direction === 'desc' ? 'desc' : 'asc';
+
+    this.loadGovernmentUsers();
+  }
   goToDashboard(): void {
     this.router.navigate(['/dashboard']);
   }
 
   loadGovernmentUsers() {
-
     this.loading = true;
 
-    this.governmentUserService.getAll({
-
+    this.governmentUserService;
+    this.governmentUserService
+      .getAll({
         search: this.search,
 
         role: this.selectedRole,
@@ -97,29 +110,26 @@ export class GovernmentUsersList {
 
         page: this.page,
 
-        limit: this.pageSize
+        limit: this.pageSize,
 
-    }).subscribe({
+        sortBy: this.sortBy,
 
-        next: response => {
+        sortOrder: this.sortOrder,
+      })
+      .subscribe({
+        next: (response) => {
+          this.loading = false;
 
-            this.loading = false;
+          this.governmentUsers = response.data;
 
-            this.governmentUsers = response.data;
-
-            this.totalRecords = response.total ?? 0;
-
+          this.totalRecords = response.total ?? 0;
         },
 
         error: () => {
-
-            this.loading = false;
-
-        }
-
-    });
-
-}
+          this.loading = false;
+        },
+      });
+  }
 
   openRegisterDialog(): void {
     const dialogRef = this.dialog.open(GovernmentUserForm, {
@@ -203,13 +213,11 @@ export class GovernmentUsersList {
       });
     });
   }
+
   onPageChange(event: PageEvent): void {
-
     this.page = event.pageIndex + 1;
-
     this.pageSize = event.pageSize;
 
     this.loadGovernmentUsers();
-
-}
+  }
 }

@@ -1,0 +1,206 @@
+ .sidebar {
+
+    width: 270px;
+    height: 100%;
+    background: #ffffff;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow-x: hidden;
+
+    transition: all .25s ease;
+
+}
+
+/*----------------------------------------------------
+Logo
+----------------------------------------------------*/
+
+.logo-container{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:12px;
+
+    padding:22px;
+
+}
+
+.logo-icon{
+
+    font-size:34px;
+
+    color:#0B5394;
+
+    width:34px;
+
+    height:34px;
+
+}
+
+.logo-text{
+
+    margin:0;
+
+    color:#0B5394;
+
+    font-size:22px;
+
+    font-weight:700;
+
+}
+
+/*----------------------------------------------------
+Navigation
+----------------------------------------------------*/
+
+mat-nav-list{
+
+    margin-top:15px;
+
+    padding:0;
+
+}
+
+/*----------------------------------------------------
+Menu Links
+----------------------------------------------------*/
+
+a[mat-list-item]{
+
+    height:52px;
+
+    margin:4px 12px;
+
+    border-radius:10px;
+
+    transition:.2s;
+
+}
+
+/*----------------------------------------------------
+Hover
+----------------------------------------------------*/
+
+a[mat-list-item]:hover{
+
+    background:#a0a1ee;
+
+}
+
+/*----------------------------------------------------
+Active Link
+----------------------------------------------------*/
+
+.active-link{
+
+    background:#E3F2FD !important;
+
+    color:#0B5394 !important;
+
+    font-weight:600;
+
+    border-left:4px solid #0B5394;
+
+}
+
+/*----------------------------------------------------
+Icons
+----------------------------------------------------*/
+
+mat-icon{
+
+    color:#546E7A;
+
+}
+
+.active-link mat-icon{
+
+    color:#0B5394;
+
+}
+
+/*----------------------------------------------------
+Group Titles
+----------------------------------------------------*/
+
+.menu-group{
+
+    margin-top:18px;
+
+}
+
+ .menu-group-title{
+
+    width:100%;
+
+    border:none;
+
+    background:none;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:14px 18px;
+
+    color:#607D8B;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+}
+
+/*----------------------------------------------------
+Submenu
+----------------------------------------------------*/
+
+.submenu{
+
+    margin-left:20px !important;
+
+}
+
+/*----------------------------------------------------
+Scrollbar
+----------------------------------------------------*/
+
+.sidebar::-webkit-scrollbar{
+
+    width:7px;
+
+}
+
+.sidebar::-webkit-scrollbar-thumb{
+
+    background:#CFD8DC;
+
+    border-radius:20px;
+
+}
+.group-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+.menu-group-title:hover{
+
+    background:#001847;
+
+}

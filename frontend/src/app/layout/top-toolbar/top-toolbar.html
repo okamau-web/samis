@@ -1,0 +1,227 @@
+
+ <mat-toolbar class="toolbar">
+
+    <!-- Left -->
+
+    <div class="toolbar-left">
+
+        <button
+            mat-icon-button
+            (click)="layoutService.toggleSidebar()">
+
+            <mat-icon>
+
+                menu
+
+            </mat-icon>
+
+        </button>
+
+        <div class="logo">
+
+            <mat-icon class="logo-icon">
+
+                account_balance
+
+            </mat-icon>
+
+            <span>
+
+                SAMIS
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- Center Search -->
+
+    <div class="toolbar-search">
+
+        <mat-icon>
+
+            search
+
+        </mat-icon>
+
+        <input
+            type="text"
+            placeholder="Search cases, citizens, reports..." />
+
+    </div>
+
+    <!-- Right -->
+
+    <div class="toolbar-right">
+
+        <!-- Notifications -->
+
+        <button
+            mat-icon-button
+            class="notification-btn"
+            matTooltip="Notifications"
+            [matBadge]="notificationCount"
+            matBadgeColor="warn"
+            matBadgeHidden="notificationCount === 0">
+
+            <mat-icon>
+
+                notifications
+
+            </mat-icon>
+
+        </button>
+
+        <div class="toolbar-divider"></div>
+
+        <!-- User -->
+
+        <button
+            mat-button
+            class="user-button"
+            [matMenuTriggerFor]="userMenu">
+
+            <div class="avatar">
+
+                {{ initials }}
+
+            </div>
+
+            <div class="user-details">
+
+                <div class="full-name">
+
+                    {{ fullName }}
+
+                </div>
+
+               
+
+                <div class="system-role">
+
+                    {{ role | uppercase }}
+
+                </div>
+
+            </div>
+
+            <mat-icon>
+
+                keyboard_arrow_down
+
+            </mat-icon>
+
+        </button>
+
+    </div>
+
+</mat-toolbar>
+
+<!-- User Menu -->
+
+<mat-menu #userMenu="matMenu">
+
+    <div class="menu-header">
+
+        <div class="avatar large">
+
+            {{ initials }}
+
+        </div>
+
+        <div>
+
+            <div class="menu-name">
+
+                {{ fullName }}
+
+            </div>
+
+            <div class="menu-designation">
+
+                {{ designation }}
+
+            </div>
+
+            <div class="role-chip">
+
+                {{ role | uppercase }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <button mat-menu-item>
+
+        <mat-icon>
+
+            person
+
+        </mat-icon>
+
+        <span>
+
+            My Profile
+
+        </span>
+
+    </button>
+
+    <button mat-menu-item>
+
+        <mat-icon>
+
+            lock
+
+        </mat-icon>
+
+        <span>
+
+            Change Password
+
+        </span>
+
+    </button>
+
+    <button mat-menu-item>
+
+        <mat-icon>
+
+            settings
+
+        </mat-icon>
+
+        <span>
+
+            Settings
+
+        </span>
+
+    </button>
+
+    <mat-divider></mat-divider>
+
+    <button
+        mat-menu-item
+        (click)="logout()">
+
+        <mat-icon>
+
+            logout
+
+        </mat-icon>
+
+        <span>
+
+            Logout
+
+        </span>
+
+    </button>
+
+</mat-menu>

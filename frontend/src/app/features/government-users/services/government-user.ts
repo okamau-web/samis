@@ -2,9 +2,10 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { API } from '../../../core/constants/api.constants';
-import { GovernmentUserRegistration } from '../../../core/models/user-registration';
-import { ApiResponse } from '../../../core/models/api.response';
-import { GovernmentUser } from '../models/government-user';
+import { GovernmentUserRegistration } from '../../../shared/models/user-registration';
+import { ApiResponse } from '../../../shared/models/api.response';
+import { GovernmentUser } from '../../../shared/models/government-user';
+import { GovernmentUserFilter } from '../../../shared/models/government-user-filter';
 
 @Injectable({
   providedIn: 'root',
@@ -20,35 +21,30 @@ export class GovernmentUserService {
     return this.http.post<ApiResponse<any>>(`${this.authUrl}/register`, data);
   }
 
-  getAll(filters?: {
-    search?: string;
+ getAll(filters?: GovernmentUserFilter) {
 
-    role?: string;
+  let params: any = {};
 
-    status?: string;
+  if (filters?.search) params.search = filters.search;
 
-    page?: number;
+  if (filters?.role) params.role = filters.role;
 
-    limit?: number;
-  }) {
-    let params: any = {};
+  if (filters?.status) params.status = filters.status;
 
-    if (filters?.search) params.search = filters.search;
+  params.page = filters?.page ?? 1;
 
-    if (filters?.role) params.role = filters.role;
+  params.limit = filters?.limit ?? 10;
 
-    if (filters?.status) params.status = filters.status;
+  params.sortBy = filters?.sortBy ?? 'fullName';
 
-    params.page = filters?.page ?? 1;
+  params.sortOrder = filters?.sortOrder ?? 'asc';
 
-    params.limit = filters?.limit ?? 10;
-
-    return this.http.get<ApiResponse<GovernmentUser[]>>(
+  return this.http.get<ApiResponse<GovernmentUser[]>>(
       this.governmentUserUrl,
+      { params }
+  );
 
-      { params },
-    );
-  }
+}
 
   getById(userId: string) {
     return this.http.get<ApiResponse<GovernmentUser>>(`${API.BASE_URL}/government-users/${userId}`);

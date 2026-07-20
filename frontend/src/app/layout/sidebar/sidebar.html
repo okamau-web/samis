@@ -1,0 +1,92 @@
+<div class="sidebar">
+  <!-- ==========================
+         Logo
+    =========================== -->
+
+  <div class="logo-container">
+    <mat-icon class="logo-icon"> account_balance </mat-icon>
+
+    @if (layoutService.sidebarOpen()) {
+      <h2 class="logo-text">SAMIS</h2>
+    }
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- ==========================
+         Navigation
+    =========================== -->
+
+  <mat-nav-list>
+    @for (item of menuItems; track item.title) {
+      @if (hasAccess(item)) {
+        <!-- ==========================
+                     Normal Menu Item
+                =========================== -->
+
+        @if (!item.children) {
+          <a mat-list-item [routerLink]="item.route" routerLinkActive="active-link">
+            <mat-icon matListItemIcon>
+              {{ item.icon }}
+            </mat-icon>
+
+            @if (layoutService.sidebarOpen()) {
+              <span matListItemTitle>
+                {{ item.title }}
+              </span>
+            }
+          </a>
+        }
+
+        <!-- ==========================
+                     Menu Group
+                =========================== -->
+
+        @if (item.children) {
+          <div class="menu-group">
+            <button class="menu-group-title" type="button" (click)="toggleGroup(item.title)">
+              <div class="group-left">
+                <mat-icon>
+                  {{ item.icon }}
+                </mat-icon>
+
+                @if (layoutService.sidebarOpen()) {
+                  <span>
+                    {{ item.title }}
+                  </span>
+                }
+              </div>
+
+              @if (layoutService.sidebarOpen()) {
+                <mat-icon>
+                  {{ isExpanded(item.title) ? 'expand_less' : 'expand_more' }}
+                </mat-icon>
+              }
+            </button>
+
+            @if (layoutService.sidebarOpen() && isExpanded(item.title)) {
+              @for (child of item.children; track child.title) {
+                @if (hasAccess(child)) {
+                  <a
+                    mat-list-item
+                    class="submenu"
+                    [routerLink]="child.route"
+                    routerLinkActive="active-link"
+                  >
+                    <mat-icon matListItemIcon>
+                      {{ child.icon }}
+                    </mat-icon>
+
+                    <span matListItemTitle>
+                      {{ child.title }}
+                    </span>
+                  </a>
+                }
+              }
+            }
+          </div>
+        }
+      }
+    }
+  </mat-nav-list>
+</div>

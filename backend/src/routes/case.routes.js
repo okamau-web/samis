@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const { verifyToken, authorize } = require("../middleware/auth.middleware");
 const {
-  
   createCase,
   getAllCases,
   getCaseById,
@@ -11,34 +10,28 @@ const {
   deleteCase,
   restoreCase,
   getDeletedCases,
-    getCaseHistory,
-    transferCase
+  getCaseHistory,
+  transferCase,
+  updateCase
 } = require("../controllers/case.controller");
 
 router.post("/", verifyToken, createCase);
 
 router.get("/", getAllCases);
- 
 
 router.get(
   "/deleted/all",
   verifyToken,
   authorize("superAdmin", "Admin"),
-  getDeletedCases
+  getDeletedCases,
 );
-router.get(
-  "/:id/history",
-  verifyToken,
-  getCaseHistory
-);
+router.get("/:caseId/history", verifyToken, getCaseHistory);
 
 router.get("/:caseId", getCaseById);
 
- router.patch(
-    "/:id/status",
-    verifyToken,
-    updateCaseStatus
-);
+router.patch("/:caseId/status", verifyToken, updateCaseStatus);
+
+router.put("/:caseId", verifyToken, authorize("superAdmin", "CC"), updateCase);
 
 router.post(
   "/:caseId/assign",
@@ -46,24 +39,26 @@ router.post(
   authorize("superAdmin", "Admin"),
   assignCase,
 );
- router.post(
-    "/:id/transfer",
-    verifyToken,
-    authorize("superAdmin", "Admin"),
-    transferCase
+router.post(
+  "/:caseId/transfer",
+  verifyToken,
+  authorize("superAdmin", "Admin"),
+  transferCase,
 );
 router.delete(
-  "/:id",
+  "/:caseId",
   verifyToken,
   authorize("superAdmin", "Admin"),
   deleteCase,
 );
 
-router.patch("/:id/restore",
-   verifyToken, 
-   authorize("superAdmin"), 
-   restoreCase);
+router.patch(
+  "/:caseId/restore",
+  verifyToken,
+  authorize("superAdmin"),
+  restoreCase,
+);
 
-
+router.patch("/:caseId/status", verifyToken, updateCaseStatus);
 
 module.exports = router;

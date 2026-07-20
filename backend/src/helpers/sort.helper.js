@@ -1,18 +1,15 @@
-// Builds a MongoDB sort stage.
- 
-
-exports.buildSortStage = (
-
+ exports.buildSortStage = (
     sortBy = "createdAt",
+    sortOrder = "desc",
+    sortFields = {}
+) => {
 
-    sortOrder = "desc"
+    const field = sortFields[sortBy] || sortBy;
 
-) => ({
+    return {
+        $sort: {
+            [field]: sortOrder === "asc" ? 1 : -1
+        }
+    };
 
-    $sort: {
-
-        [sortBy]: sortOrder === "asc" ? 1 : -1
-
-    }
-
-});
+};

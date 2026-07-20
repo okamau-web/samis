@@ -1,0 +1,55 @@
+ <div
+    class="stats-card"
+    (click)="openCard()">
+
+    <div class="card-header">
+
+        <div class="title">
+
+            {{ title }}
+
+        </div>
+
+        <div
+            class="icon-box"
+            [style.background]="color">
+
+            <mat-icon>
+
+                {{ icon }}
+
+            </mat-icon>
+
+        </div>
+
+    </div>
+
+    <div class="card-body">
+
+        {{ value }}
+
+    </div>
+
+   <div
+    class="card-footer"
+    [class.up]="trend === 'up'"
+    [class.down]="trend === 'down'"
+    [class.neutral]="trend === 'neutral'">
+
+        <mat-icon>
+
+            {{
+                trend === 'up'
+                ? 'trending_up'
+                : trend === 'down'
+                ? 'trending_down'
+                : 'trending_flat'
+            }}
+
+        </mat-icon>
+
+        {{ change }}
+
+    </div>
+
+</div>

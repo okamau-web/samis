@@ -3,7 +3,7 @@ const GovernmentProfile = require("../models/GovernmentProfile");
 const CitizenProfile = require("../models/CitizenProfile");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-  const {
+ const {
   isStrongPassword,
   PASSWORD_POLICY,
 } = require("../utils/password.validators");
@@ -266,7 +266,15 @@ if (!isStrongPassword(password)) {
        401
       );
     }
+let profile = null;
 
+if (user.userType === "Government") {
+
+  profile = await GovernmentProfile.findOne({
+    userId: user._id
+  });
+
+}
     // Prevent suspended users from logging in
     if (user.status === "Suspended") {
       return errorResponse(
@@ -290,17 +298,17 @@ if (!isStrongPassword(password)) {
     );
 
   
-    return successResponse(
-    res,
-    
-    "Login successful.",
-    {
-        token,
-        userId: user._id,
-        username: user.username,
-        role: user.role,
-        userType: user.userType,
-    }
+  return successResponse(
+  res,
+  "Login successful.",
+  {
+    token,
+    userId: user._id,
+    username: user.username,
+    role: user.role,
+    userType: user.userType,
+    profile
+  }
 );
 
   } catch (error) {

@@ -55,39 +55,34 @@ POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {
-  "username": "2118",
+  "username": "20220003321",
   "password":"M@1029123924o"
 }
 
 
 #### testing token auth
 GET http://localhost:3000/api/auth/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDhjMjgyMzQwNjM4MWQ1YjhiZTEzNyIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4MzY3MTI5MiwiZXhwIjoxNzgzNzU3NjkyfQ.CmBcym8sD66ANNWk3laGFXNnp078ve4ii99yG3NVWCY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4NDU0MzczMSwiZXhwIjoxNzg0NjMwMTMxfQ.lX9W0Vjo1adXn-nB2TMGthxCMBOJ2f4NBzXgQHFQD38
 
 ### test admin role
 GET http://localhost:3000/api/auth/admin
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpX
-VCJ9.eyJpZCI6IjZhNDhjM2IwMzQwNjM4MWQ1YjhiZTEzOSIsIn
-VzZXJuYW1lIjoiMTIzNDU2NzgiLCJyb2xlIjoiQ2l0aXplbiIsInV
-zZXJUeXBlIjoiQ2l0aXplbiIsImlhdCI6MTc4MzE2NDE2NSwiZXhwI
-joxNzgzMjUwNTY1fQ.tHaTziJcSb8MQhiGl8isig6a8-ugpMCT_
-MrSzDHWfAY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6Ik
+ 
 
 ### case creation
 POST http://localhost:3000/api/cases
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4Mzc1MTE0NywiZXhwIjoxNzgzODM3NTQ3fQ.Rhy5TVHnuHKsJC_JmmceQNRpRoI7J-AzJpgxUhTz-lM
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4NDU1MjIxMCwiZXhwIjoxNzg0NjM4NjEwfQ.BfvYP7PDCh3JsIc5w7kkvNpngGX4bslZr-WeIFN0TA0
 {
   "title": "Security",
-  "description": "Cattle Raid",
+  "description": "Illegal Grazing",
   "category": "Security",
   "county": "Laikipia",
   "subCounty": "Kirima",
-  "division": "Louniek",
-  "location": "Kariwo",
-  "subLocation": "Nagum",
-  "village": "Louniek",
+  "division": "Olmoran",
+  "location": "Kirima",
+  "subLocation": "Donyoloip",
+  "village": "Ratia",
   "priority": "High"
 }
 #### get all cases
@@ -95,25 +90,81 @@ GET http://localhost:3000/api/cases
 
 #### get case by id
 GET http://localhost:3000/api/cases/6a5260267bb0cd335a4a2547
-
 ### update case
-PATCH http://localhost:3000/api/cases/6a4a66885926461d1b416229/status
-
+PATCH http://localhost:3000/api/cases/6a5260267bb0cd335a4a2547/status
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4NDU0MzczMSwiZXhwIjoxNzg0NjMwMTMxfQ.lX9W0Vjo1adXn-nB2TMGthxCMBOJ2f4NBzXgQHFQD38
 
  {
-    "status": "Resolved"
-} 
-###
-POST http://localhost:3000/api/cases/6a5260267bb0cd335a4a2547/assign
+    "status": "Under Investigation",
+     
+}
+### case history
+GET http://localhost:3000/api/cases/6a5260267bb0cd335a4a2547/history
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4Mzc1MTE0NywiZXhwIjoxNzgzODM3NTQ3fQ.Rhy5TVHnuHKsJC_JmmceQNRpRoI7J-AzJpgxUhTz-lM
- 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4NDU0MzczMSwiZXhwIjoxNzg0NjMwMTMxfQ.lX9W0Vjo1adXn-nB2TMGthxCMBOJ2f4NBzXgQHFQD38
+
+
+### Updating Case Status
+PATCH http://localhost:3000/api/cases/1444414141414/status
+Authorization: Bearer  token
+Content-Type: application/json
+
 {
-    "assignedTo": "6a50cf25e14a13401261b3ee"
+    "status": "Under Investigation",
+    "remarks": "Investigation has commenced."
+}
+###transfer case
+Post http://localhost:3000/api/cases/6a5260267bb0cd335a4a2547/transfer
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4NDU0MzczMSwiZXhwIjoxNzg0NjMwMTMxfQ.lX9W0Vjo1adXn-nB2TMGthxCMBOJ2f4NBzXgQHFQD38
+
+ {
+    "assignedTo": "6a57ad884520899a0d687109",
+    "reason": "Case belongs to officer's jurisdiction (Louniek)."
+}
+
+###UPDATE CASE
+PUT http://localhost:3000/api/cases/6a5260267bb0cd335a4a2547
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4NDU1MjIxMCwiZXhwIjoxNzg0NjM4NjEwfQ.BfvYP7PDCh3JsIc5w7kkvNpngGX4bslZr-WeIFN0TA0
+Content-Type: application/json
+
+{
+    "title": "Updated Stock Theft Case",
+    "description": "Updated investigation details",
+    "category": "Theft",
+    "county": "Laikipia",
+    "subCounty": "Kirima",
+    "division": "Olmoran",
+    "location": "Olmoran",
+    "subLocation": "Olmoran Central",
+    "village": "Mtaro",
+    "priority": "High"
+}
+
+### soft delete case
+DELETE http://localhost:3000/api/cases/6a5260267bb0cd335a4a2547
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4NDU1MjIxMCwiZXhwIjoxNzg0NjM4NjEwfQ.BfvYP7PDCh3JsIc5w7kkvNpngGX4bslZr-WeIFN0TA0
+Content-Type: application/json
+
+###RESTORE DELETED CASES
+PATCH http://localhost:3000/api/cases/6a5260267bb0cd335a4a2547/restore
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4NDU1MjIxMCwiZXhwIjoxNzg0NjM4NjEwfQ.BfvYP7PDCh3JsIc5w7kkvNpngGX4bslZr-WeIFN0TA0
+ 
+###GET ALL DELETED CASES
+GET http://localhost:3000/api/cases/deleted/all
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4NDU1MjIxMCwiZXhwIjoxNzg0NjM4NjEwfQ.BfvYP7PDCh3JsIc5w7kkvNpngGX4bslZr-WeIFN0TA0
+ 
+###
+POST http://localhost:3000/api/cases/6a5dfbdc1ab46f19247e21de/assign
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4NDU0MzczMSwiZXhwIjoxNzg0NjMwMTMxfQ.lX9W0Vjo1adXn-nB2TMGthxCMBOJ2f4NBzXgQHFQD38
+
+{
+    "assignedTo": "6a57ad884520899a0d687109"
 }
 ###filter cases
-GET http://localhost:3000/api/cases?search=SAMIS-2026-000005
+GET http://localhost:3000/api/cases?search=SAMIS-2026-000007
 
 
 ###test sort & pagination
@@ -122,8 +173,8 @@ GET http://localhost:3000/api/cases?status=Assigned&page=1&limit=5
 
 ### validating sorts and pagination
 GET http://localhost:3000/api/government-users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4NDI2ODkyNiwiZXhwIjoxNzg0MzU1MzI2fQ.aYi87N5q50Sy2t-FVxWrgkIW0dLcSLtwmAi8HR0Cokc
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTBjZmUyZTE0YTEzNDAxMjYxYjNmMCIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4NDU0MzczMSwiZXhwIjoxNzg0NjMwMTMxfQ.lX9W0Vjo1adXn-nB2TMGthxCMBOJ2f4NBzXgQHFQD38
+ 
 ### delete case
 DELETE http://localhost:3000/api/cases/6a4b60b85b3e1b75b4cfd08b
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDhjMjgyMzQwNjM4MWQ1YjhiZTEzNyIsInVzZXJuYW1lIjoiMjAyMjAwMDMzMjEiLCJyb2xlIjoic3VwZXJBZG1pbiIsInVzZXJUeXBlIjoiR292ZXJubWVudCIsImlhdCI6MTc4MzYwMzA3NSwiZXhwIjoxNzgzNjg5NDc1fQ.te0Hiwre86fpJmLAd-1IzhlhVOazeiWilGI7Wy9Tm0I

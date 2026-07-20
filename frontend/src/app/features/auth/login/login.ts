@@ -33,19 +33,15 @@ export class Login {
 
     this.authService.login(this.loginForm.value).subscribe({
       next: (response) => {
+
+       
         // Save JWT
         localStorage.setItem('token', response.data.token);
         // Save logged in user
         localStorage.setItem(
-          'user',
-          JSON.stringify({
-            userId: response.data.userId,
-            username: response.data.username,
-            role: response.data.role,
-            userType: response.data.userType,
-          }),
-        );
-
+  'user',
+  JSON.stringify(response.data)
+);
       this.snackbar.success(response.message);
 
         // Redirect

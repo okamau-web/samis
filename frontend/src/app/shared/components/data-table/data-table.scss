@@ -1,0 +1,119 @@
+.table-container {
+
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+
+}
+
+.data-table {
+
+    width: 100%;
+
+}
+
+.mat-mdc-header-row {
+
+    background: #F8FAFC;
+
+}
+
+.mat-mdc-header-cell {
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #475569;
+
+    border-bottom: 1px solid #E2E8F0;
+
+}
+
+.mat-mdc-row {
+
+    transition: all .2s ease;
+
+}
+
+.mat-mdc-row:hover {
+
+    background: #F8FAFC;
+
+}
+
+.mat-mdc-cell {
+
+    color: #334155;
+
+    border-bottom: 1px solid #F1F5F9;
+
+}
+
+button[mat-icon-button] {
+
+    margin-right: 6px;
+
+}
+
+button[mat-icon-button]:hover {
+
+    transform: scale(1.1);
+
+}
+
+.loading {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    height: 220px;
+
+    font-size: 16px;
+
+    color: #64748B;
+
+}
+
+.empty-state {
+
+    text-align: center;
+
+    padding: 48px;
+
+    color: #94A3B8;
+
+}
+
+.empty-state mat-icon {
+
+    font-size: 56px;
+
+    width: 56px;
+
+    height: 56px;
+
+    margin-bottom: 12px;
+
+}
+
+.empty-state p {
+
+    margin: 0;
+
+    font-size: 15px;
+
+}
+
+mat-paginator {
+
+    border-top: 1px solid #E2E8F0;
+
+}

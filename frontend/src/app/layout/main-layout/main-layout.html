@@ -1,4 +1,4 @@
-<div class="wrapper">
+<!--<div class="wrapper">
    
     <aside class="sidebar">
       <div class="logo">
@@ -67,3 +67,27 @@
     </div>
   </main>
 </div>
+-->
+<mat-sidenav-container class="layout-container">
+
+     <mat-sidenav
+    mode="side"
+    [opened]="layoutService.sidebarOpen()">
+
+    <app-sidebar></app-sidebar>
+
+</mat-sidenav>
+
+    <mat-sidenav-content>
+
+        <app-top-toolbar></app-top-toolbar>
+
+        <main class="content">
+
+            <router-outlet></router-outlet>
+
+        </main>
+
+    </mat-sidenav-content>
+
+</mat-sidenav-container>

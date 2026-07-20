@@ -1,0 +1,52 @@
+ <div class="activity-card">
+
+    <div class="card-header">
+
+        <mat-icon>
+
+            history
+
+        </mat-icon>
+
+        <h2>
+
+            Recent Activity
+
+        </h2>
+
+    </div>
+
+    <div class="activity-list">
+
+        @for(activity of activities; track activity.id){
+
+            <div class="activity-item">
+
+                <div
+                    class="activity-dot"
+                    [style.background]="activity.color">
+                </div>
+
+                <div class="activity-content">
+
+                    <div class="activity-title">
+
+                        {{ activity.title }}
+
+                    </div>
+
+                    <div class="activity-time">
+
+                        {{ activity.time }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        }
+
+    </div>
+
+</div>

@@ -10,14 +10,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { GovernmentUserService } from '../../services/government-user';
-import { GovernmentUserRegistration } from '../../../../core/models/user-registration';
+import { GovernmentUserRegistration } from '../../../../shared/models/user-registration';
 import { SnackbarService } from '../../../../core/services/snackbar';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { passwordMatchValidator } from '../../../../core/validators/password-match.validator';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 import { Inject } from '@angular/core';
-import { GovernmentUser } from '../../models/government-user';
+import { GovernmentUser } from '../../../../shared/models/government-user';
 
 @Component({
   selector: 'app-government-user-form',

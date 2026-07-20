@@ -1,5 +1,4 @@
  const BaseRepository = require("./base.repository");
-
 const User = require("../models/User");
 
 const {
@@ -17,113 +16,79 @@ const {
 const {
     buildPaginationFacet
 } = require("../helpers/pagination.helper");
+const governmentUserSortFields =
+require("../constants/government-user-sort-fields");
 
 class GovernmentUserRepository extends BaseRepository {
 
     constructor() {
-
         super(User);
-
     }
 
     async findAll(query) {
 
         const {
-
             search = "",
-
             role,
-
             status,
-
             page = 1,
-
             limit = 10,
-
             sortBy = "createdAt",
-
             sortOrder = "desc"
-
         } = query;
+
+        // Mapping between frontend column names and MongoDB fields
+      
 
         const pipeline = [];
 
         const userFilter = {
-
             userType: "Government"
-
         };
 
         if (role) {
-
             userFilter.role = role;
-
         }
 
         if (status) {
-
             userFilter.status = status;
-
         }
 
         pipeline.push({
-
             $match: userFilter
-
         });
 
         pipeline.push(
-
             ...lookupGovernmentProfile()
-
         );
 
         const searchStage = buildSearchStage(
-
             [
-
                 "username",
-
                 "profile.fullName",
-
                 "profile.personalNumber",
-
                 "profile.nationalId"
-
             ],
-
             search
-
         );
 
         if (searchStage) {
-
             pipeline.push(searchStage);
-
         }
 
         pipeline.push(
-
             buildSortStage(
-
                 sortBy,
-
-                sortOrder
-
+                sortOrder,
+                governmentUserSortFields
             )
-
         );
 
         pipeline.push({
-
             $facet: buildPaginationFacet(
-
                 Number(page),
-
                 Number(limit),
-
                 {
-
                     _id: 0,
 
                     userId: "$_id",
@@ -161,11 +126,8 @@ class GovernmentUserRepository extends BaseRepository {
                     createdAt: 1,
 
                     updatedAt: 1
-
                 }
-
             )
-
         });
 
         const result = await this.model.aggregate(pipeline);

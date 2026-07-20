@@ -45,4 +45,57 @@ export class AuthService {
   isLoggedIn() {
     return !!localStorage.getItem('token');
   }
+
+  /**
+ * Returns the complete logged in user
+ */
+getCurrentUser(): any {
+
+  return this.getUser();
+
+}
+
+/**
+ * Returns the officer's full name
+ */
+getFullName(): string {
+
+  return this.getCurrentUser()?.profile?.fullName ?? '';
+
+}
+
+/**
+ * Returns the officer's designation
+ */
+getDesignation(): string {
+
+  return this.getCurrentUser()?.profile?.designation ?? '';
+
+}
+
+/**
+ * Returns the officer's initials
+ * Example:
+ * Onesmus Kamau -> OK
+ * Steve Biko -> SB
+ */
+getInitials(): string {
+
+  const fullName = this.getFullName();
+
+  if (!fullName) {
+
+    return this.getUsername()?.charAt(0).toUpperCase() ?? '';
+
+  }
+
+  return fullName
+    .trim()
+    .split(' ')
+    .map(name => name.charAt(0))
+    .join('')
+    .substring(0, 2)
+    .toUpperCase();
+
+}
 }

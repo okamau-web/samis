@@ -13,7 +13,7 @@
         <mat-icon>person_add</mat-icon>
 
         Register User
-
+ 
     </button>
 
 </app-page-header>
@@ -77,12 +77,18 @@
 </div>
 <mat-card class="page-card">
 
-  <app-government-user-table
+ <app-government-user-table
     [users]="governmentUsers"
-    (view)="viewGovernmentUser($event)"
-    (edit)="editGovernmentUser($event)"
-    (suspend)="toggleGovernmentUserStatus($event)">
-  </app-government-user-table>
+    [loading]="loading"
+    [page]="page"
+    [pageSize]="pageSize"
+    [totalRecords]="totalRecords"
+    (sortChange)="onSortChange($event)"
+    (pageChange)="onPageChange($event)"
+    (viewGovernmentUser)="viewGovernmentUser($event)"
+    (editGovernmentUser)="editGovernmentUser($event)"
+    (toggleGovernmentUserStatus)="toggleGovernmentUserStatus($event)">
+</app-government-user-table>
 <mat-paginator
 
     [length]="totalRecords"
